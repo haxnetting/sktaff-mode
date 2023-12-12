@@ -1,0 +1,62 @@
+# ────────────────────────────────
+# ------------------
+#   Ｓｋｒｉｐｔ  Ｂｙ  MrHaxMC
+# ------------------
+#   Ｗｅｂｓｉｔｅ:  https://HaxNet.soon
+# ------------------
+#   ＧｉｔＨｕｂ:  https://github.com/HAX-MC
+# ------------------
+#   Ｄｉｓｃｏｒｄ:  @haxmc
+# ------------------
+#   dependencies: https://github.com/HAX-MC/vaniSKh + https://github.com/HAX-MC/ChecSK-SKreenShare
+# ────────────────────────────────
+
+# DEFAULT
+on script load:
+    set {staffmode::*} to false
+
+# OPTIONS
+options:
+    permission: haxnet.staffmode
+    permission message: &cYou do not have permission to use this command!
+    aliases: sm, staffm, smode
+    bhduration: 7
+
+# COMMAND
+command /staffmode:
+    permission: {@permission}
+    permission message: {@permission message}
+    aliases: {@aliases}
+    trigger:
+        if {staffmode::*} is false:
+            set {staffmode::*} to true
+            send "&aYou have enabled staff mode!" 
+            clear player's inventory
+            give player 1 blaze rod of power 1 named "&6&l​🇧​​🇦​​🇳​ ​🇭​​🇦​​🇲​​🇲​​🇪​​🇷" with lore "&cPunch a player to temp-ban them for {@bhduration} days!"
+            #ONLY COMPATIBLE WITH MY SKREENSHARE SKRIPT!!!
+            give player 1 stick of power 1 named "&4&L 🇨​​🇭​​🇪​​🇦​​🇹​​🇪​​🇷​ ​🇨​​🇦​​🇹​​🇨​​🇭​​🇪​​🇷" with lore "&cPunch a player to Check them! (Only compatible with hax's skript)"
+            give player 1 wooden sword of power 1 named "&7&L 🇰​​🇮​​🇨​​🇰​​🇪​​🇷​ ​🇸​​🇼​​🇴​​🇷​​🇩" with lore "&cPunch a player to kick them!"
+            give player 1 snowball of power 1 named "&f&l TOOGLE VANISH" with lore "&cPunch a player to toggle vanish!"
+
+            send "&cYou have been hidden from all players!" to player
+        else:
+            set {staffmode::*} to false
+            send "&cYou have disabled staff mode!"
+            console command "vanish"
+on damage:
+    if attacker's tool is blaze rod of power 1 named "&6&l​🇧​​🇦​​🇳​ ​🇭​​🇦​​🇲​​🇲​​🇪​​🇷" with lore "&cPunch a player to temp-ban them for {@bhduration} days!":
+        if attacker is not victim:
+            if victim is not op:
+                console command "tempban {victim} {@bhduration}d &cYou have been banned by {attacker} for &7{@bhduration} &cdays using ​🇧​​🇦​​🇳​ ​🇭​​🇦​​🇲​​🇲​​🇪​​🇷!"
+    if attacker's tool is stick of power 1 named "&4&L 🇨​​🇭​​🇪​​🇦​​🇹​​🇪​​🇷​ ​🇨​​🇦​​🇹​​🇨​​🇭​​🇪​​🇷" with lore "&cPunch a player to Check them! (Only compatible with hax's skript)":
+        if attacker is not victim:
+            if victim is not op:
+                console command "check check {victim}"
+    if attacker's tool is wooden sword of power 1 named "&7&L 🇰​​🇮​​🇨​​🇰​​🇪​​🇷​ ​🇸​​🇼​​🇴​​🇷​​🇩" with lore "&cPunch a player to kick them!":
+        if attacker is not victim:
+            if victim is not op:
+                console command "kick {victim} &cYou have been kicked by {attacker}! using ​🇰​​🇮​​🇨​​🇰​​🇪​​🇷​ ​🇸​​🇼​​🇴​​🇷​​🇩"
+
+on right click with snowball:
+    if player's tool is snowball of power 1 named "&f&l TOOGLE VANISH" with lore "&cPunch a player to toggle vanish!":
+        console command "vanish"
